@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useTodo } from '../Context'
 
 function TodoItem({ todo }) {
 
-    console.log(`from todItmes ${todo}`)
+    // console.log(`from todItmes ${todo}`)
+    const [isTodoEditable , setIsTodoEditable] = useState(false)
+    const [todoMsg , setTodoMsg] = useState(todo.todo)
+
+    const { updateTodo } = useTodo()
+
+    const editTodo = () => {
+        updateTodo(todo.id,{...todo , todo : todoMsg})
+        setIsTodoEditable(false)
+    }
+    
 
   return (
     <div
@@ -14,30 +25,30 @@ function TodoItem({ todo }) {
     <input
         type="checkbox"
         className="cursor-pointer"
-        checked={todo.completed}
+        // checked={todo.completed}
         // onChange={toggleCompleted}
     />
     <input
         type="text"
         className={`border outline-none w-full bg-transparent rounded-lg 
         } ${todo.completed ? "line-through" : ""}`}
-        value={todo.todo}
-        // onChange={(e) => setTodoMsg(e.target.value)}
-        // readOnly={!isTodoEditable}
+        value={todoMsg}
+        onChange={(e) => setTodoMsg(e.target.value)}
+        readOnly={!isTodoEditable} // Ye line jo h na edit krny dyna ya nhi decide krti h
     />
     {/* Edit, Save Button */}
     <button
         className="inline-flex w-8 h-8 rounded-lg text-sm border border-black/10 justify-center items-center bg-gray-50 hover:bg-gray-100 shrink-0 disabled:opacity-50"
-        // onClick={() => {
-        //     if (todo.completed) return;
+        onClick={() => {
+            // if (todo.completed) return;
 
-        //     if (isTodoEditable) {
-        //         editTodo();
-        //     } else setIsTodoEditable((prev) => !prev);
-        // }}
+            if (isTodoEditable) {
+                editTodo();
+            } else setIsTodoEditable((prev) => !prev);
+        }}
         // disabled={todo.completed}
     >
-        {/* {isTodoEditable ? "📁" : "✏️"} */}
+        {isTodoEditable ? "📁" : "✏️"}
     </button>
     {/* Delete Todo Button */}
     <button
