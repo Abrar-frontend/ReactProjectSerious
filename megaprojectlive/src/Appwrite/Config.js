@@ -1,10 +1,11 @@
-import { Client, Databases,Storage, ID } from "appwrite";
+import { Client, Databases,Storage, ID, Query } from "appwrite";
 import conf from '../conf/conf'
 
 export class Service{
     client = new Client();
      databases;
      bucket;
+     
     constructor(){
         this.client
         .setEndpoint(conf.appWriteUrl)
@@ -64,9 +65,73 @@ export class Service{
         }
     }
     //deletePost finish here
-    async getPost(){
+    async getPost(slug){
+        try{
+            return await this.databases.getDocument(
+                conf.appWriteDatabaseId,
+                conf.appWriteCollectionId,
+                slug)
+        }catch(error){
+            console.log("Appwrite serive :: getPost :: error", error);
+            return false
+        }
+    }
+    //get one post finish here
+    async getPosts( queris = [Query.equal("status","active")]){
+        try{
+            return await this.databases.listDocuments(
+                conf.appWriteDatabaseId,
+                conf.appWriteCollectionId,
+                queris,
+            )
+        }catch(error){
+            console.log("Appwrite serive :: getPosts :: error", error);
+            return false
+        }
+    }
+
+    // File uploaded start from here
+
+    async uploadfile(file){
+        try{
+            return await this.bucket.createFile(
+                conf.appWriteBucketId,
+                ID.unique(),
+                file
+            )
+        }catch(error){
+            console.log("Appwrite serive :: uploadFile :: error", error);
+            return false
+        }
+    }
+
+    // Upload file finished here
+
+    async deleteFile(fileId){
+     try{
+        await this.bucket.deleteFile(
+            conf.appWriteBucketId,
+            fileId,
+        )
+        return true
+     }catch(error){
+        console.log("Appwrite serive :: deleteFile :: error", error);
+        return false
+     }
+    }
+
+    // delelt file finished here
+
+    getFilePreview(fileId){
+      
+            return this.bucket.getFilePreview(
+                conf.appWriteBucketId,
+                fileId,
+            )
 
     }
+
+
 
 }
 
