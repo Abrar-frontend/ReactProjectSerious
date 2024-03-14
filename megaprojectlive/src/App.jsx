@@ -1,4 +1,4 @@
-import { Header , Btnbar} from "./component";
+import { Header , Footer} from "./component";
 import { Outlet } from "react-router-dom";
 
 import authService from "./Appwrite/Auth";
@@ -37,7 +37,7 @@ function App() {
         <main>
         TODO:  <Outlet />
         </main>
-        <Btnbar />
+        <Footer />
      
       </div>
     </div>
