@@ -1,5 +1,6 @@
 import { createSlice , createAsyncThunk } from "@reduxjs/toolkit";
 
+// this createAsyncThunk function is create for pushing data in database by use mockapi.
 export const createUser = createAsyncThunk(
     "createUser",
     async (data , {rejectWithValue}) => {
@@ -13,12 +14,26 @@ export const createUser = createAsyncThunk(
 
         try{
             const result = await response.json()
-            return
+            return result
         }catch (error){
           return rejectWithValue(error)
         }
     }
 )
+
+//Now I create get data requst by using createAsyncThunk function
+
+export const getAllusers = createAsyncThunk('getUsers', async ( data, rejectWithValue ) => {
+    const response = fetch("https://65acbff2adbd5aa31bdf8004.mockapi.io/first")
+    try{
+     const result  = await (await response).json()
+     console.log(result)
+    //  console.log(users,"checked in there")
+     return result
+    }catch(error){
+        return rejectWithValue(error)
+    }
+})
 
 const initialState = {
     users : [],
@@ -41,6 +56,20 @@ export const userSlice = createSlice({
         [createUser.rejected]: (state,action) => {
             state.loading = false;
             state.error = action.payload.message;
+        },
+        
+        // getAllusers
+
+        [getAllusers.pending] : (state) => {
+            state.loading = true
+        },
+        [getAllusers.fulfilled] : (state,action) => {
+            state.loading = false,
+            state.users = action.payload
+        },
+        [getAllusers.rejected] : (state,action) => {
+            state.loading = false,
+            state.error = action.payload.message
         }
      }
     }

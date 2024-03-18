@@ -9,6 +9,8 @@ import Select from "./Select";
 import PostCard from "./PostCard";
 import Protected from "./AuthLayout";  // There have issue this line is not meet with hites video
 import Login from "./Login";
+import RTE from "./RTE";
+import Signup from "./Signup";
 
 export {
     Header,
@@ -22,5 +24,7 @@ export {
     PostCard,
     Protected,
     Login,
+    RTE,
+    Signup,
    
 }
