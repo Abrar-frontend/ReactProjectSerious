@@ -6,7 +6,7 @@ import {Button, Input, Logo} from './index.js'
 import {useDispatch} from 'react-redux'
 import {useForm} from 'react-hook-form'
 
-import React from 'react'
+
 
 function Signup() {
  const navigate = useNavigate();
@@ -18,7 +18,7 @@ function Signup() {
     setError("")
 
     try{
-        const userData = await authService.createAccount()
+        const userData = await authService.createAccount(data)
         if(userData){
             const userData = await authService.getCurrentUser()
             if(userData) dispatch(login(userData));

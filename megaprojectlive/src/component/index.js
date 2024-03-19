@@ -7,10 +7,11 @@ import Button from "./Button";
 import Input from "./Input";
 import Select from "./Select";
 import PostCard from "./PostCard";
-import Protected from "./AuthLayout";  // There have issue this line is not meet with hites video
+import AuthLayout from "./AuthLayout";  
 import Login from "./Login";
 import RTE from "./RTE";
 import Signup from "./Signup";
+import PostForm from "./post-form/PostForm";
 
 export {
     Header,
@@ -22,9 +23,10 @@ export {
     Input,
     Select,
     PostCard,
-    Protected,
+    AuthLayout,
     Login,
     RTE,
     Signup,
+    PostForm,
    
 }

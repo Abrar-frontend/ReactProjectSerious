@@ -14,13 +14,13 @@ function Home() {
         })
     },[])
 
-    if (posts.length === 0) {
+    if (Posts.length === 0) {
   return (
     <div className="w-full py-8 mt-4 text-center">
         
         <Container>
             <div className='flex flex-wrap'>
-                {posts.map( (post) => (
+                {Posts.map( (post) => (
                     <div key = {post.$id} className='p-2 w-1/4'> 
                         <PostCard {...post}/>
                     </div>
